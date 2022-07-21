@@ -21,7 +21,7 @@ public static class MonoBehaviourExtensions
     ///</summary>
     public static async void Invoke(this MonoBehaviour monoBehaviour, float delay, Action action)
     {
-        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
+	await UniTask.WaitForSeconds(delay);
         action.Invoke();
     }
 
@@ -72,7 +72,7 @@ public static class MonoBehaviourExtensions
     /// <param name="delay">Time after which MonoBehaviour will be enabled or disabled.</param>
     public static async void SetEnabled(this MonoBehaviour monoBehaviour, bool enabled, float delay)
     {
-        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
+	await UniTask.WaitForSeconds(delay);
         monoBehaviour.enabled = enabled;
     }
 
