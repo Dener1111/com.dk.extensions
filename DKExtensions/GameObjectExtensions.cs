@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+
 
 public static class GameObjectExtensions
 {
@@ -134,7 +136,7 @@ public static class GameObjectExtensions
     /// <param name="delay">Time after which gameObject will be Inactivated.</param>
 	public static async void SetInactive(this GameObject gameObject, float delay)
     {
-        await new WaitForSeconds(delay);
+        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
         gameObject.SetActive(false);
     }
 
@@ -142,7 +144,7 @@ public static class GameObjectExtensions
     /// <param name="delay">Time after which gameObject will be Activated.</param>
     public static async void SetActive(this GameObject gameObject, float delay)
     {
-        await new WaitForSeconds(delay);
+        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
         gameObject.SetActive(true);
     }
 
@@ -150,8 +152,7 @@ public static class GameObjectExtensions
     /// <param name="frames">Frames after which gameObject will be Deactivated.</param>
 	public static async void SetInactive(this GameObject gameObject, int frames)
     {
-        for (int i = 0; i < frames; i++)
-            await new WaitForEndOfFrame();
+        await UniTask.NextFrame(frames);
         gameObject.SetActive(false);
     }
 
@@ -159,8 +160,7 @@ public static class GameObjectExtensions
     /// <param name="frames">Frames after which gameObject will be Activated.</param>
     public static async void SetActive(this GameObject gameObject, int frames)
     {
-        for (int i = 0; i < frames; i++)
-            await new WaitForEndOfFrame();
+        await UniTask.NextFrame(frames);
         gameObject.SetActive(true);
     }
 }
