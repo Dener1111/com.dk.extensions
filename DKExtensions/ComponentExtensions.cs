@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public static class ComponentExtensions
 {
@@ -55,7 +56,7 @@ public static class ComponentExtensions
     /// <param name="delay">Time after which gameObject will be Inactivated.</param>
 	public static async void SetInactive(this Component component, float delay)
     {
-        await new WaitForSeconds(delay);
+        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
         component.gameObject.SetActive(false);
     }
 
@@ -63,7 +64,7 @@ public static class ComponentExtensions
     /// <param name="delay">Time after which gameObject will be Activated.</param>
     public static async void SetActive(this Component component, float delay)
     {
-        await new WaitForSeconds(delay);
+        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
         component.gameObject.SetActive(true);
     }
 
@@ -71,8 +72,7 @@ public static class ComponentExtensions
     /// <param name="frames">Frames after which gameObject will be Deactivated.</param>
 	public static async void SetInactive(this Component component, int frames)
     {
-        for (int i = 0; i < frames; i++)
-            await new WaitForEndOfFrame();
+        await UniTask.NextFrame(frames);
         component.gameObject.SetActive(false);
     }
 
@@ -80,8 +80,7 @@ public static class ComponentExtensions
     /// <param name="frames">Frames after which gameObject will be Activated.</param>
     public static async void SetActive(this Component component, int frames)
     {
-        for (int i = 0; i < frames; i++)
-            await new WaitForEndOfFrame();
+        await UniTask.NextFrame(frames);
         component.gameObject.SetActive(true);
     }
 }
