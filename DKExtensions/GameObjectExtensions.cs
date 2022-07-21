@@ -136,7 +136,7 @@ public static class GameObjectExtensions
     /// <param name="delay">Time after which gameObject will be Inactivated.</param>
 	public static async void SetInactive(this GameObject gameObject, float delay)
     {
-        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
+	await UniTask.WaitForSeconds(delay);
         gameObject.SetActive(false);
     }
 
@@ -144,7 +144,7 @@ public static class GameObjectExtensions
     /// <param name="delay">Time after which gameObject will be Activated.</param>
     public static async void SetActive(this GameObject gameObject, float delay)
     {
-        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
+	await UniTask.WaitForSeconds(delay);
         gameObject.SetActive(true);
     }
 
