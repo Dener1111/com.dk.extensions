@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public static class ColliderExtensions
 {
@@ -39,7 +40,7 @@ public static class ColliderExtensions
     /// <param name="delay">Time after which Collider will be enabled or disabled.</param>
     public static async void SetEnabled(this Collider collider, bool enabled, float delay)
     {
-        await new WaitForSeconds(delay);
+	await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
         collider.enabled = enabled;
     }
 
@@ -61,8 +62,7 @@ public static class ColliderExtensions
     /// <param name="frames">Frames after which Collider will be enabled or disabled.</param>
     public static async void SetEnabled(this Collider collider, bool enabled, int frames)
     {
-        for (int i = 0; i < frames; i++)
-            await new WaitForEndOfFrame();
+        await UniTask.NextFrame(frames);
         collider.enabled = enabled;
     }
 }
