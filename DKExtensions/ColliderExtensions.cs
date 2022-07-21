@@ -40,7 +40,7 @@ public static class ColliderExtensions
     /// <param name="delay">Time after which Collider will be enabled or disabled.</param>
     public static async void SetEnabled(this Collider collider, bool enabled, float delay)
     {
-	await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
+	await UniTask.WaitForSeconds(delay);
         collider.enabled = enabled;
     }
 
