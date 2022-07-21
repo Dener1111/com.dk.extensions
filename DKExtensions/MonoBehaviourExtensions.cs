@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public static class MonoBehaviourExtensions
 {
@@ -20,8 +21,8 @@ public static class MonoBehaviourExtensions
     ///</summary>
     public static async void Invoke(this MonoBehaviour monoBehaviour, float time, Action action)
     {
-        await new WaitForSeconds(time);
-            action.Invoke();
+        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
+        action.Invoke();
     }
 
     ///<summary>
@@ -31,8 +32,7 @@ public static class MonoBehaviourExtensions
     ///</summary>
     public static async void Invoke(this MonoBehaviour monoBehaviour, int frames, Action action)
     {
-        for (int i = 0; i < frames; i++)
-            await new WaitForEndOfFrame();
+        await UniTask.NextFrame(frames);
         action.Invoke();
     }
 
@@ -72,7 +72,7 @@ public static class MonoBehaviourExtensions
     /// <param name="delay">Time after which MonoBehaviour will be enabled or disabled.</param>
     public static async void SetEnabled(this MonoBehaviour monoBehaviour, bool enabled, float delay)
     {
-        await new WaitForSeconds(delay);
+        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
         monoBehaviour.enabled = enabled;
     }
 
@@ -94,9 +94,7 @@ public static class MonoBehaviourExtensions
     /// <param name="frames">Frames after which MonoBehaviour will be enabled or disabled.</param>
     public static async void SetEnabled(this MonoBehaviour monoBehaviour, bool enabled, int frames)
     {
-        for (int i = 0; i < frames; i++)
-            await new WaitForEndOfFrame();
-
+        await UniTask.NextFrame(frames);
         monoBehaviour.enabled = enabled;
     }
 }
