@@ -19,7 +19,7 @@ public static class MonoBehaviourExtensions
     ///<param = "time">deley in seconds before invoking Action </param>
     ///<param = "action">Action to invoke</param>
     ///</summary>
-    public static async void Invoke(this MonoBehaviour monoBehaviour, float time, Action action)
+    public static async void Invoke(this MonoBehaviour monoBehaviour, float delay, Action action)
     {
         await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
         action.Invoke();
