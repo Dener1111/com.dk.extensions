@@ -72,7 +72,7 @@ public static class ComponentExtensions
     /// <param name="frames">Frames after which gameObject will be Deactivated.</param>
 	public static async void SetInactive(this Component component, int frames)
     {
-        await UniTask.NextFrame(frames);
+        await UniTask.DelayFrame(frames);
         component.gameObject.SetActive(false);
     }
 
@@ -80,7 +80,7 @@ public static class ComponentExtensions
     /// <param name="frames">Frames after which gameObject will be Activated.</param>
     public static async void SetActive(this Component component, int frames)
     {
-        await UniTask.NextFrame(frames);
+        await UniTask.DelayFrame(frames);
         component.gameObject.SetActive(true);
     }
 }
