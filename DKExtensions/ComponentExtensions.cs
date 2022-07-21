@@ -56,7 +56,7 @@ public static class ComponentExtensions
     /// <param name="delay">Time after which gameObject will be Inactivated.</param>
 	public static async void SetInactive(this Component component, float delay)
     {
-        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
+	await UniTask.WaitForSeconds(delay);
         component.gameObject.SetActive(false);
     }
 
@@ -64,7 +64,7 @@ public static class ComponentExtensions
     /// <param name="delay">Time after which gameObject will be Activated.</param>
     public static async void SetActive(this Component component, float delay)
     {
-        await UniTask.Delay(System.TimeSpan.FromSeconds(delay));
+	await UniTask.WaitForSeconds(delay);
         component.gameObject.SetActive(true);
     }
 
