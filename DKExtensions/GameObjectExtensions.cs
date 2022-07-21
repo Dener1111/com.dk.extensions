@@ -152,7 +152,7 @@ public static class GameObjectExtensions
     /// <param name="frames">Frames after which gameObject will be Deactivated.</param>
 	public static async void SetInactive(this GameObject gameObject, int frames)
     {
-        await UniTask.NextFrame(frames);
+        await UniTask.DelayFrame(frames);
         gameObject.SetActive(false);
     }
 
@@ -160,7 +160,7 @@ public static class GameObjectExtensions
     /// <param name="frames">Frames after which gameObject will be Activated.</param>
     public static async void SetActive(this GameObject gameObject, int frames)
     {
-        await UniTask.NextFrame(frames);
+        await UniTask.DelayFrame(frames);
         gameObject.SetActive(true);
     }
 }
