@@ -62,7 +62,7 @@ public static class ColliderExtensions
     /// <param name="frames">Frames after which Collider will be enabled or disabled.</param>
     public static async void SetEnabled(this Collider collider, bool enabled, int frames)
     {
-        await UniTask.NextFrame(frames);
+        await UniTask.DelayFrame(frames);
         collider.enabled = enabled;
     }
 }
