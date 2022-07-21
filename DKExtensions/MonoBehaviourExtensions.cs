@@ -32,7 +32,7 @@ public static class MonoBehaviourExtensions
     ///</summary>
     public static async void Invoke(this MonoBehaviour monoBehaviour, int frames, Action action)
     {
-        await UniTask.NextFrame(frames);
+        await UniTask.DelayFrame(frames);
         action.Invoke();
     }
 
@@ -94,7 +94,7 @@ public static class MonoBehaviourExtensions
     /// <param name="frames">Frames after which MonoBehaviour will be enabled or disabled.</param>
     public static async void SetEnabled(this MonoBehaviour monoBehaviour, bool enabled, int frames)
     {
-        await UniTask.NextFrame(frames);
+        await UniTask.DelayFrame(frames);
         monoBehaviour.enabled = enabled;
     }
 }
