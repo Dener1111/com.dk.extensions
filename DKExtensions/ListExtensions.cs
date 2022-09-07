@@ -58,32 +58,44 @@ public static partial class Extensions
         return list[Random.Range(index, list.Count)];
     }
 
-    /// <summary>Заполняет массив</summary>
-    /// <param name="value">Значение для заполнения массива</param>
+    /// <summary>Populates Array</summary>
+    /// <param name="value">Value to fill all elements</param>
     /// <example>
     /// <code>
     /// var array = new int[10];
     /// array.Populate(5);
     /// </code>
     /// </example>
-    public static void Populate<T>(this T[] arr, T value)
+    public static T[] Populate<T>(this T[] arr, T value)
     {
         for (var i = 0; i < arr.Length; i++)
             arr[i] = value;
+
+        return arr;
     }
 
-    /// <summary>Пепреводит лист с читаемый вид</summary>
+    /// <summary>Populates List</summary>
+    /// <param name="value">Value to fill all elements</param>
+    /// <example>
+    /// <code>
+    /// var list = new List<int>(10);
+    /// list.Populate(5);
+    /// </code>
+    /// </example>
+    public static List<T> Populate<T>(this List<T> list, T value)
+    {
+        for (var i = 0; i < list.Length; i++)
+            list[i] = value;
+
+        return list;
+    }
+
+    /// <summary>Returns list in readable form</summary>
     public static string Print<T>(this IList<T> list)
     {
         var res = "[ " + string.Join(", ", list.Select(s => $"{s}\n")) + " ]";
         return res;
     }
-
-    // public static string Print(this IList list)
-    // {
-    // 	var res = "[ " + string.Join(", ", list.(s => $"{s}")) + " ]";
-    // 	return res;
-    // }
 
     /// <summary>Shuffles all alemnts in the List</summary>
     public static void Shuffle<T>(this IList<T> list)
