@@ -84,7 +84,7 @@ public static partial class Extensions
     /// </example>
     public static List<T> Populate<T>(this List<T> list, T value)
     {
-        for (var i = 0; i < list.Length; i++)
+        for (var i = 0; i < list.Count; i++)
             list[i] = value;
 
         return list;
