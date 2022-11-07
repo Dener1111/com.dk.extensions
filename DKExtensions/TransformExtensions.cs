@@ -194,4 +194,18 @@ public static class TransformExtensions
             }
         }
     }
+	
+    public static Transform FindRecursiveContains(Transform findIn, string nameToFind)
+    {
+        if (findIn.name.Contains(nameToFind))
+            return findIn;
+
+        foreach (Transform child in findIn)
+        {
+            var res = FindRecursiveContains(child, nameToFind);
+            if (res) return res;
+        }
+
+        return null;
+    }
 }
