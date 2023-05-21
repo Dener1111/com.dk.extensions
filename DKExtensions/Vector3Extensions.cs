@@ -146,7 +146,7 @@ public static class Vector3Extensions
         return v3i;
     }
 
-    /// <summary>Returns same vector with changed y value</summary>
+    /// <summary>Returns same vector with changed x value</summary>
     public static Vector3 WithX(this Vector3 vector, float x)
     {
         return new Vector3(x, vector.y, vector.z);
@@ -158,9 +158,33 @@ public static class Vector3Extensions
         return new Vector3(vector.x, y, vector.z);
     }
 
-    /// <summary>Returns same vector with changed y value</summary>
+    /// <summary>Returns same vector with changed z value</summary>
     public static Vector3 WithZ(this Vector3 vector, float z)
     {
         return new Vector3(vector.x, vector.y, z);
+    }
+    
+    /// <summary>Returns only x value of the vector</summary>
+    public static Vector3 OnlyX(this Vector3 vector)
+    {
+        return new Vector3(vector.x, 0f, 0f);
+    }
+
+    /// <summary>Returns only y value of the vector</summary>
+    public static Vector3 OnlyY(this Vector3 vector)
+    {
+        return new Vector3(0, vector.y, 0);
+    }
+
+    /// <summary>Returns only z value of the vector</summary>
+    public static Vector3 OnlyZ(this Vector3 vector)
+    {
+        return new Vector3(0, 0, vector.z);
+    }
+    
+    /// <summary>Returns x and z value of the vector</summary>
+    public static Vector3 OnlyXZ(this Vector3 vector)
+    {
+        return new Vector3(vector.x, 0, vector.z);
     }
 }
