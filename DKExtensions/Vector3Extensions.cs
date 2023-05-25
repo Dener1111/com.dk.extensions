@@ -164,6 +164,24 @@ public static class Vector3Extensions
         return new Vector3(vector.x, vector.y, z);
     }
     
+    /// <summary>Returns same vector with x value set to 0</summary>
+    public static Vector3 WithX(this Vector3 vector)
+    {
+        return new Vector3(0, vector.y, vector.z);
+    }
+
+    /// <summary>Returns same vector with y value set to 0</summary>
+    public static Vector3 WithY(this Vector3 vector)
+    {
+        return new Vector3(vector.x, 0, vector.z);
+    }
+
+    /// <summary>Returns same vector with z value set to 0</summary>
+    public static Vector3 WithZ(this Vector3 vector)
+    {
+        return new Vector3(vector.x, vector.y, 0);
+    }
+    
     /// <summary>Returns only x value of the vector</summary>
     public static Vector3 OnlyX(this Vector3 vector)
     {
