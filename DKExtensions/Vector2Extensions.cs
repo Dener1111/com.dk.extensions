@@ -82,6 +82,18 @@ public static class Vector2Extensions
         return new Vector2(vector.x, y);
     }
     
+    /// <summary>Returns same vector with x value set to 0</summary>
+    public static Vector2 WithX(this Vector2 vector)
+    {
+        return new Vector2(0, vector.y);
+    }
+
+    /// <summary>Returns same vector with y value set to 0</summary>
+    public static Vector2 WithY(this Vector2 vector)
+    {
+        return new Vector2(vector.x, 0);
+    }
+    
     /// <summary>Returns only x value of the vector</summary>
     public static Vector2 OnlyX(this Vector2 vector)
     {
