@@ -1,5 +1,5 @@
 using UnityEngine;
-using Cysharp.Threading.Tasks;
+using UTask;
 
 public static class ColliderExtensions
 {
