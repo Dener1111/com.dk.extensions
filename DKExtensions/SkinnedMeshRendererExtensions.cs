@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using UTask;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public static class SkinnedMeshRendererExtensions
