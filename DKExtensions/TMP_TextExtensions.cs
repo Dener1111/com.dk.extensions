@@ -4,4 +4,9 @@ public static class TMP_TextExtensions
     {
         tmpText.SetText(obj.ToString());
     }
+
+    public static void Clear(this TMPro.TMP_Text tmpText)
+    {
+        tmpText.text = "";
+    }
 }
