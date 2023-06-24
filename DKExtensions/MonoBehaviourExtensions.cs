@@ -36,6 +36,17 @@ public static class MonoBehaviourExtensions
         action.Invoke();
     }
 
+    public static UniTask WaitSeconds(this MonoBehaviour monoBehaviour, float secondsDelay, bool ignoreTimeScale = false, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        var delayTimeSpan = TimeSpan.FromSeconds(secondsDelay);
+        return UniTask.Delay(delayTimeSpan, ignoreTimeScale, delayTiming, cancellationToken);
+    }
+
+    public static UniTask WaitFrames(this MonoBehaviour monoBehaviour, int framesDelay = 1, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        return UniTask.DelayFrame(framesDelay, delayTiming, cancellationToken);
+    }
+
     /// <summary>Enables MonoBehaviour</summary>
 	public static void SetEnabled(this MonoBehaviour monoBehaviour)
     {
