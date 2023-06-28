@@ -1,6 +1,6 @@
 using System;
 
-public static partial class Extensions
+public static partial class DateTimeExtensions
 {
 	/// <summary>Returns dateTime in seconds</summary>
 	public static long InSeconds(this DateTime dateTime)

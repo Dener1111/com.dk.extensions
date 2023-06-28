@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class RectTransformExtensions
+public static partial class RectTransformExtensions
 {
     /// <summary>Returns RectTransform</summary>
 	public static RectTransform GetRectTransform(this Component component)

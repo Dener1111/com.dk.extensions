@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class ColorExtensions
+public static partial class ColorExtensions
 {
     /// <summary>
     ///Returns color with alpha

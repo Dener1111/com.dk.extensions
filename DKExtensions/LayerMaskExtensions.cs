@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class LayerMaskExtensions
+public static partial class LayerMaskExtensions
 {
     ///<summary>
     ///Returns true if LayerMask includes passed layer

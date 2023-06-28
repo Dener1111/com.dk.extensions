@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public static class TransformExtensions
+public static partial class TransformExtensions
 {
     ///<summary>
     ///Returns list of all siblings
@@ -116,6 +116,16 @@ public static class TransformExtensions
 
         outT = t.GetChild(index);
         return true;
+    }
+
+    public static Transform GetFirstChild(this Transform t)
+    {
+        return t.GetChild(0);
+    }
+
+    public static Transform GetLastChild(this Transform t)
+    {
+        return t.GetChild(t.childCount - 1);
     }
 
     ///<summary>

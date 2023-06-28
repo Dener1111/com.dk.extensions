@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class TextureExtensions
+public static partial class TextureExtensions
 {
     /// <summary>Resizes Texture</summary>
 	/// <param name="newWidth">New width</param>

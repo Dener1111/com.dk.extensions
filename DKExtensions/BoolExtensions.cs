@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class BoolExtensions
+public static partial class BoolExtensions
 {
     ///<summary>
     ///Converts bool to int. true = 1, false = 0

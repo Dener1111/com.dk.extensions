@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class FloatExtensions
+public static partial class FloatExtensions
 {
     /// <summary>Return 1 or -1</summary>
 	/// <param name="probability">Probability of 1</param>

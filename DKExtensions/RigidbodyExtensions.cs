@@ -2,7 +2,7 @@ using UnityEngine;
 /// <summary>
 /// Extension methods for UnityEngine.Rigidbody.
 /// </summary>
-public static class RigidbodyExtensions
+public static partial class RigidbodyExtensions
 {
     /// <summary>
     /// Changes the direction of a rigidbody without changing its speed.

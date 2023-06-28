@@ -3,7 +3,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-public static class MonoBehaviourExtensions
+public static partial class MonoBehaviourExtensions
 {
     ///<summary>
     ///Sets MonoBehaviour dirty

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public static class Vector3Extensions
+public static partial class Vector3Extensions
 {
     ///<summary>
     ///Returns closest point to transform
@@ -52,7 +52,7 @@ public static class Vector3Extensions
     /// <summary>Get direction from 2 positions</summary>
     public static Vector3 Direction(this Vector3 target, Vector3 pos)
     {
-        var head = target - pos;
+        var head = pos - target;
         var dist = head.magnitude;
         return head / dist;
     }

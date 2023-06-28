@@ -1,9 +1,8 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public static class ColliderExtensions
+public static partial class ColliderExtensions
 {
-
     /// <summary>Enables Collider</summary>
     public static void SetEnabled(this Collider collider)
     {

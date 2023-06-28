@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 
-public static class ComponentExtensions
+public static partial class ComponentExtensions
 {
-    public static T CopyComponent<T>(T original, GameObject destination) where T : Component
+    public static T CopyComponent<T>(this T original, GameObject destination) where T : Component
     {
         System.Type type = original.GetType();
 
@@ -94,7 +94,7 @@ public static class ComponentExtensions
     /// <param name="delay">Time after which gameObject will be Inactivated.</param>
 	public static async void SetInactive(this Component component, float delay)
     {
-	await UniTask.WaitForSeconds(delay);
+        await UniTask.WaitForSeconds(delay);
         component.gameObject.SetActive(false);
     }
 
@@ -102,7 +102,7 @@ public static class ComponentExtensions
     /// <param name="delay">Time after which gameObject will be Activated.</param>
     public static async void SetActive(this Component component, float delay)
     {
-	await UniTask.WaitForSeconds(delay);
+        await UniTask.WaitForSeconds(delay);
         component.gameObject.SetActive(true);
     }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class ParticleSystemExtensions
+public static partial class ParticleSystemExtensions
 {
 
     public static void EmissionEnable(this ParticleSystem ps, bool enabled = true)

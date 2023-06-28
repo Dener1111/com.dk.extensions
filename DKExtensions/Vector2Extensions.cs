@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class Vector2Extensions
+public static partial class Vector2Extensions
 {
     ///<summary>
     ///Converts Vector2 to Vector3 where x = v2.x, y = 0, z = v2.y
@@ -69,6 +69,14 @@ public static class Vector2Extensions
 		v2i.y = Mathf.RoundToInt(vector.y);
 		return v2i;
 	}
+
+    /// <summary>Get direction from 2 positions</summary>
+    public static Vector2 Direction(this Vector2 target, Vector2 pos)
+    {
+        var head = pos - target;
+        var dist = head.magnitude;
+        return head / dist;
+    }
 
 	/// <summary>Returns same vector with changed y value</summary>
     public static Vector2 WithX(this Vector2 vector, float x)

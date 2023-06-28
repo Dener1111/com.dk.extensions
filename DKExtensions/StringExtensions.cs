@@ -1,4 +1,4 @@
-public static class StringExtensions
+public static partial class StringExtensions
 {
 	/// <summary>Deletes substring from string</summary>
 	/// <param name="removeString">To delete</param>

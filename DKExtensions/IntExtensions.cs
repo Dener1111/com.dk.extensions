@@ -1,6 +1,6 @@
 using Random = UnityEngine.Random;
 
-public static class IntExtensions
+public static partial class IntExtensions
 {
     /// <summary>Return Random value without number</summary>
     /// <param name="min">Min value (inclusive)</param>

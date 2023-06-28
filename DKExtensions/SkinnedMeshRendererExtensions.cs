@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public static class SkinnedMeshRendererExtensions
+public static partial class SkinnedMeshRendererExtensions
 {
     /// <summary>
     /// Animates blend shape to endValue 

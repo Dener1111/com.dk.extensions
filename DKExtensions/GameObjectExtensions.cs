@@ -2,8 +2,7 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-
-public static class GameObjectExtensions
+public static partial class GameObjectExtensions
 {
     ///<summary>
     ///Sets GameObject dirty
