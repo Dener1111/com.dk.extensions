@@ -59,9 +59,9 @@ public static partial class ComponentExtensions
     /// <returns>Previously or newly attached component.</returns>
     public static T GetOrAddComponent<T>(this Component component) where T : Component
     {
-	T component = component.GetComponent<T>();
-	if(!component) component = component.AddComponent<T>();
-        return component;
+	T newComponent = component.GetComponent<T>();
+        if (!newComponent) newComponent = component.AddComponent<T>();
+        return newComponent;
     }
 
     /// <summary>
