@@ -101,6 +101,16 @@ public static partial class Vector2Extensions
     {
         return new Vector2(vector.x, 0);
     }
+
+    public static Vector3 WithZ(this Vector2 vector)
+    {
+	    return new Vector3(vector.x, vector.y, 0);
+    }
+    
+    public static Vector3 WithZ(this Vector2 vector, float z)
+    {
+	    return new Vector3(vector.x, vector.y, z);
+    }
     
     /// <summary>Returns only x value of the vector</summary>
     public static Vector2 OnlyX(this Vector2 vector)
