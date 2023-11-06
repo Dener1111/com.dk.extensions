@@ -3,6 +3,10 @@ using UnityEngine;
 
 public static partial class Vector3Extensions
 {
+    public static Quaternion ToQuaternion(this Vector3 eulerAngles)
+    {
+        return Quaternion.Euler(eulerAngles);
+    }
     ///<summary>
     ///Returns closest point to transform
     ///</summary>
