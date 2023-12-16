@@ -26,6 +26,11 @@ public static partial class IntExtensions
     }
 
     ///<summary>
+    ///Returns -1 or 1
+    ///</summary>
+    public static int GetDirection() => Random.value > .5f ? 1 : -1;
+
+    ///<summary>
     ///Returns random value between 0 and int
     ///</summary>
     public static int GetRandom(this int num) => UnityEngine.Random.Range(0, num + 1);
