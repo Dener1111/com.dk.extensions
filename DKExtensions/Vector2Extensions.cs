@@ -26,6 +26,11 @@ public static partial class Vector2Extensions
         return Random.Range(vector2.x, vector2.y);
     }
 
+    public static float Evaluate(this Vector2 vector2, float t)
+    {
+	    return Mathf.Lerp(vector2.x, vector2.y, t);
+    }
+
     public static bool InRange(this Vector2Int vector2, float value)
     {
         return value >= vector2.x && value <= vector2.y;
