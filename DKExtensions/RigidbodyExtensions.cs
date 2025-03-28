@@ -11,7 +11,7 @@ public static partial class RigidbodyExtensions
     /// <param name="direction">New direction.</param>
     public static void ChangeDirection(this Rigidbody rigidbody, Vector3 direction)
     {
-        rigidbody.velocity = direction * rigidbody.velocity.magnitude;
+        rigidbody.linearVelocity = direction * rigidbody.linearVelocity.magnitude;
     }
 
     public static void TogglePhysics(this Rigidbody rigidbody, bool physics = true)

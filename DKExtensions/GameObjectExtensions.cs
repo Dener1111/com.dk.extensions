@@ -164,4 +164,9 @@ public static partial class GameObjectExtensions
         await UniTask.DelayFrame(frames);
         gameObject.SetActive(true);
     }
+    
+    public static bool IsInScene(this GameObject go)
+    {
+        return go && go.scene.IsValid();
+    }
 }

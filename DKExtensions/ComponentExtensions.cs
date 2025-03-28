@@ -123,4 +123,9 @@ public static partial class ComponentExtensions
         await UniTask.DelayFrame(frames);
         component.gameObject.SetActive(true);
     }
+    
+    public static bool IsInScene(this Component go)
+    {
+        return go.gameObject.IsInScene();
+    }
 }
