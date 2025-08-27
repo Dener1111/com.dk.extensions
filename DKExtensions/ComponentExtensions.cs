@@ -6,6 +6,24 @@ using System.Linq;
 
 public static partial class ComponentExtensions
 {
+    public static bool IsInScene(this Component go)
+    {
+        return go.gameObject.IsInScene();
+    }
+    
+    public static IEnumerable<FieldInfo> GetAllFields(System.Type t)
+    {
+        if (t == null)
+            return Enumerable.Empty<FieldInfo>();
+
+        BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic |
+                             BindingFlags.Static | BindingFlags.Instance |
+                             BindingFlags.DeclaredOnly;
+        return t.GetFields(flags).Concat(GetAllFields(t.BaseType));
+    }
+
+    #region ComponetWorkflow
+    
     public static T CopyComponent<T>(this T original, GameObject destination) where T : Component
     {
         System.Type type = original.GetType();
@@ -30,17 +48,7 @@ public static partial class ComponentExtensions
         return dst as T;
 
     }
-
-    public static IEnumerable<FieldInfo> GetAllFields(System.Type t)
-    {
-        if (t == null)
-            return Enumerable.Empty<FieldInfo>();
-
-        BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic |
-                             BindingFlags.Static | BindingFlags.Instance |
-                             BindingFlags.DeclaredOnly;
-        return t.GetFields(flags).Concat(GetAllFields(t.BaseType));
-    }
+    
     /// <summary>
     /// Attaches a component to the given component's game object.
     /// </summary>
@@ -74,22 +82,42 @@ public static partial class ComponentExtensions
         return component.GetComponent<T>() != null;
     }
 
-    /// <summary>Inactivates gameobject</summary>
-	public static void SetInactive(this Component component)
-    {
-        component.gameObject.SetActive(false);
-    }
+    #endregion
 
+    #region Activate/Inactivate
+    
     /// <summary>Activates gameobject</summary>
     public static void SetActive(this Component component)
     {
         component.gameObject.SetActive(true);
     }
-
+    
     /// <summary>Activates gameobject</summary>
-	public static void SetActive(this Component component, bool value)
+    public static void SetActive(this Component component, bool value)
     {
         component.gameObject.SetActive(value);
+    }
+    
+    /// <summary>Activates gameObject</summary>
+    /// <param name="frames">Frames after which gameObject will be Activated.</param>
+    public static async void SetActive(this Component component, int frames)
+    {
+        await UniTask.DelayFrame(frames, cancellationToken: component.GetCancellationTokenOnDestroy());
+        component.gameObject.SetActive(true);
+    }
+    
+    /// <summary>Activates gameObject</summary>
+    /// <param name="delay">Time after which gameObject will be Activated.</param>
+    public static async void SetActive(this Component component, float delay)
+    {
+        await UniTask.WaitForSeconds(delay, cancellationToken: component.GetCancellationTokenOnDestroy());
+        component.gameObject.SetActive(true);
+    }
+
+    /// <summary>Inactivates gameobject</summary>
+	public static void SetInactive(this Component component)
+    {
+        component.gameObject.SetActive(false);
     }
 
     /// <summary>Inactivates gameObject</summary>
@@ -100,14 +128,6 @@ public static partial class ComponentExtensions
         component.gameObject.SetActive(false);
     }
 
-    /// <summary>Activates gameObject</summary>
-    /// <param name="delay">Time after which gameObject will be Activated.</param>
-    public static async void SetActive(this Component component, float delay)
-    {
-        await UniTask.WaitForSeconds(delay, cancellationToken: component.GetCancellationTokenOnDestroy());
-        component.gameObject.SetActive(true);
-    }
-
     /// <summary>Inactivates gameObject</summary>
     /// <param name="frames">Frames after which gameObject will be Deactivated.</param>
 	public static async void SetInactive(this Component component, int frames)
@@ -115,17 +135,6 @@ public static partial class ComponentExtensions
         await UniTask.DelayFrame(frames, cancellationToken: component.GetCancellationTokenOnDestroy());
         component.gameObject.SetActive(false);
     }
-
-    /// <summary>Activates gameObject</summary>
-    /// <param name="frames">Frames after which gameObject will be Activated.</param>
-    public static async void SetActive(this Component component, int frames)
-    {
-        await UniTask.DelayFrame(frames, cancellationToken: component.GetCancellationTokenOnDestroy());
-        component.gameObject.SetActive(true);
-    }
     
-    public static bool IsInScene(this Component go)
-    {
-        return go.gameObject.IsInScene();
-    }
+    #endregion
 }
