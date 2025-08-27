@@ -1,13 +1,15 @@
+using UnityEngine;
+
 public static partial class StringExtensions
 {
 	/// <summary>Deletes substring from string</summary>
 	/// <param name="removeString">To delete</param>
-	public static string Remove(this string sourceString, string removeString)
+	public static string Remove(this string value, string removeString)
 	{
-		var index = sourceString.IndexOf(removeString);
+		var index = value.IndexOf(removeString);
 		var cleanPath = (index < 0) ?
-			sourceString :
-			sourceString.Remove(index, removeString.Length);
+			value :
+			value.Remove(index, removeString.Length);
 
 		return cleanPath;
 	}
@@ -37,4 +39,13 @@ public static partial class StringExtensions
 		
 		return new string(array);
 	}
+	
+	/// <summary>Returns true if string is null or empty</summary>
+	public static bool IsNullOrEmpty(this string value)
+	{
+		return string.IsNullOrEmpty(value);
+	}
+
+	/// <summary>Returns Animator Hash for string</summary>
+	public static int AnimatorHash(this string value) => Animator.StringToHash(value);
 }
