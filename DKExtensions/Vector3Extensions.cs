@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static partial class Vector3Extensions
 {
-    public static Quaternion ToQuaternion(this Vector3 eulerAngles)
-    {
-        return Quaternion.Euler(eulerAngles);
-    }
     ///<summary>
     ///Returns closest point to transform
     ///</summary>
@@ -208,5 +204,28 @@ public static partial class Vector3Extensions
     public static Vector3 OnlyXZ(this Vector3 vector)
     {
         return new Vector3(vector.x, 0, vector.z);
+    }
+    
+    /// <summary>
+    /// Moves a Vector3 toward a target position using an underdamped spring motion
+    /// </summary>
+    /// <param name="current">The current position</param>
+    /// <param name="target">The position to spring toward</param>
+    /// <param name="velocity">Reference to a velocity vector, must be preserved between calls</param>
+    /// <param name="deltaTime">The time elapsed since the last update (typically Time.deltaTime)</param>
+    /// <param name="frequency">Spring frequency (Hz); higher is snappier, lower is springier</param>
+    /// <param name="damping">0 = high oscillation, 1 = no overshoot. lower values - more bouncy overshoot</param>
+    public static Vector3 Spring(this Vector3 current, Vector3 target, ref Vector3 velocity, float deltaTime, float frequency = 1f, float damping = 1f)
+    {
+        float omega = 2f * Mathf.PI * frequency;
+        float zeta = damping;
+
+        float exp = Mathf.Exp(-zeta * omega * deltaTime);
+        Vector3 delta = current - target;
+
+        Vector3 temp = (velocity + delta * (omega * omega * deltaTime)) * exp;
+        velocity = (velocity - delta * (omega * omega * deltaTime)) * exp;
+
+        return target + (delta + temp * deltaTime) * exp;
     }
 }
