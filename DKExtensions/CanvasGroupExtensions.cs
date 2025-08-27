@@ -1,5 +1,5 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public static partial class CanvasGroupExtensions
 {
@@ -20,30 +20,33 @@ public static partial class CanvasGroupExtensions
         {
             elapsedNormal = Mathf.InverseLerp(0, animTime, elapsed);
             target.alpha = Mathf.Lerp(target.alpha, endValue, elapsedNormal);
-            await UniTask.NextFrame();
+            await UniTask.NextFrame(cancellationToken: target.GetCancellationTokenOnDestroy());
             elapsed += Time.deltaTime;
         }
         target.alpha = endValue;
     }
     
-    public static void Show(this CanvasGroup canvasGroup)
+    /// <summary>Set CanvasGroup's alpha to 1f</summary>
+    public static void Show(this CanvasGroup canvasGroup, bool interactable = true, bool blocksRaycasts = true)
     {
         const float showValue = 1f;
         
         canvasGroup.alpha = showValue;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = interactable;
+        canvasGroup.blocksRaycasts = blocksRaycasts;
     }
         
-    public static void Hide(this CanvasGroup canvasGroup)
+    /// <summary>Set CanvasGroup's alpha to 0f</summary>
+    public static void Hide(this CanvasGroup canvasGroup, bool interactable = false, bool blocksRaycasts = false)
     {
         const float hideValue = 0f;
         
         canvasGroup.alpha = hideValue;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = interactable;
+        canvasGroup.blocksRaycasts = blocksRaycasts;
     }
         
+    /// <summary>Toggle CanvasGroup's visibility</summary>
     public static void Toggle(this CanvasGroup canvasGroup, bool value)
     {
         if(value) canvasGroup.Show();
