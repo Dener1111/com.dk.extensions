@@ -1,9 +1,16 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
 public static partial class GameObjectExtensions
 {
+    public static bool IsInScene(this GameObject go)
+    {
+        return go && go.scene.IsValid();
+    }
+
+    #region EditorFunction
+    
     ///<summary>
     ///Sets GameObject dirty
     ///</summary>
@@ -27,7 +34,11 @@ public static partial class GameObjectExtensions
 #endif
         return null;
     }
+    
+    #endregion
 
+    #region Layers
+    
     public static void SetLayer(this GameObject gameObject, int newLayer)
     {
         gameObject.layer = newLayer;
@@ -49,12 +60,15 @@ public static partial class GameObjectExtensions
             SetLayerRecursively(child.gameObject, newLayer);
         }
     }
-
     public static void SetLayerRecursively(this GameObject gameObject, string newLayer)
     {
         gameObject.SetLayerRecursively(LayerMask.NameToLayer(newLayer));
     }
+    
+    #endregion
 
+    #region ChildrenWorkflow
+    
     ///<summary>
     ///Returns list of all children
     ///</summary>
@@ -85,7 +99,7 @@ public static partial class GameObjectExtensions
     ///<summary>
     ///Sets all children of gameObject inactive
     ///</summary>
-    public static void SetChildrenInctive(this GameObject go)
+    public static void SetChildrenInactive(this GameObject go)
     {
         go.transform.SetChildrenActive(false);
     }
@@ -97,7 +111,11 @@ public static partial class GameObjectExtensions
     {
         go.transform.DestroyAllChildImmediate();
     }
+    
+    #endregion
 
+    #region ComponentWorkflow
+    
     /// <summary>
     /// Gets a component attached to the given game object.
     /// If one isn't found, a new one is attached and returned.
@@ -106,8 +124,8 @@ public static partial class GameObjectExtensions
     /// <returns>Previously or newly attached component.</returns>
     public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
     {
-	T component = gameObject.GetComponent<T>();
-	if(!component) component = gameObject.AddComponent<T>();
+        T component = gameObject.GetComponent<T>();
+        if (!component) component = gameObject.AddComponent<T>();
         return component;
     }
 
@@ -120,53 +138,54 @@ public static partial class GameObjectExtensions
     {
         return gameObject.GetComponent<T>() != null;
     }
+    
+    #endregion
 
-    /// <summary>Inactivates gameObject</summary>
-	public static void SetInactive(this GameObject gameObject)
-    {
-        gameObject.SetActive(false);
-    }
-
+    #region Activate/Inactivate
+    
     /// <summary>Activates gameObject</summary>
     public static void SetActive(this GameObject gameObject)
     {
         gameObject.SetActive(true);
     }
-
-    /// <summary>Inactivates gameObject</summary>
-    /// <param name="delay">Time after which gameObject will be Inactivated.</param>
-	public static async void SetInactive(this GameObject gameObject, float delay)
-    {
-	await UniTask.WaitForSeconds(delay);
-        gameObject.SetActive(false);
-    }
-
+    
     /// <summary>Activates gameObject</summary>
     /// <param name="delay">Time after which gameObject will be Activated.</param>
     public static async void SetActive(this GameObject gameObject, float delay)
     {
-	await UniTask.WaitForSeconds(delay);
+        await UniTask.WaitForSeconds(delay, cancellationToken: gameObject.GetCancellationTokenOnDestroy());
         gameObject.SetActive(true);
     }
-
-    /// <summary>Inactivates gameObject</summary>
-    /// <param name="frames">Frames after which gameObject will be Deactivated.</param>
-	public static async void SetInactive(this GameObject gameObject, int frames)
-    {
-        await UniTask.DelayFrame(frames);
-        gameObject.SetActive(false);
-    }
-
+    
     /// <summary>Activates gameObject</summary>
     /// <param name="frames">Frames after which gameObject will be Activated.</param>
     public static async void SetActive(this GameObject gameObject, int frames)
     {
-        await UniTask.DelayFrame(frames);
+        await UniTask.DelayFrame(frames, cancellationToken: gameObject.GetCancellationTokenOnDestroy());
         gameObject.SetActive(true);
     }
     
-    public static bool IsInScene(this GameObject go)
+    /// <summary>Inactivates gameObject</summary>
+    public static void SetInactive(this GameObject gameObject)
     {
-        return go && go.scene.IsValid();
+        gameObject.SetActive(false);
     }
+    
+    /// <summary>Inactivates gameObject</summary>
+    /// <param name="delay">Time after which gameObject will be Inactivated.</param>
+    public static async void SetInactive(this GameObject gameObject, float delay)
+    {
+        await UniTask.WaitForSeconds(delay, cancellationToken: gameObject.GetCancellationTokenOnDestroy());
+        gameObject.SetActive(false);
+    }
+    
+    /// <summary>Inactivates gameObject</summary>
+    /// <param name="frames">Frames after which gameObject will be Deactivated.</param>
+    public static async void SetInactive(this GameObject gameObject, int frames)
+    {
+        await UniTask.DelayFrame(frames, cancellationToken: gameObject.GetCancellationTokenOnDestroy());
+        gameObject.SetActive(false);
+    }
+    
+    #endregion
 }
