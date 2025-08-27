@@ -96,7 +96,7 @@ public static partial class ComponentExtensions
     /// <param name="delay">Time after which gameObject will be Inactivated.</param>
 	public static async void SetInactive(this Component component, float delay)
     {
-        await UniTask.WaitForSeconds(delay);
+        await UniTask.WaitForSeconds(delay, cancellationToken: component.GetCancellationTokenOnDestroy());
         component.gameObject.SetActive(false);
     }
 
@@ -104,7 +104,7 @@ public static partial class ComponentExtensions
     /// <param name="delay">Time after which gameObject will be Activated.</param>
     public static async void SetActive(this Component component, float delay)
     {
-        await UniTask.WaitForSeconds(delay);
+        await UniTask.WaitForSeconds(delay, cancellationToken: component.GetCancellationTokenOnDestroy());
         component.gameObject.SetActive(true);
     }
 
@@ -112,7 +112,7 @@ public static partial class ComponentExtensions
     /// <param name="frames">Frames after which gameObject will be Deactivated.</param>
 	public static async void SetInactive(this Component component, int frames)
     {
-        await UniTask.DelayFrame(frames);
+        await UniTask.DelayFrame(frames, cancellationToken: component.GetCancellationTokenOnDestroy());
         component.gameObject.SetActive(false);
     }
 
@@ -120,7 +120,7 @@ public static partial class ComponentExtensions
     /// <param name="frames">Frames after which gameObject will be Activated.</param>
     public static async void SetActive(this Component component, int frames)
     {
-        await UniTask.DelayFrame(frames);
+        await UniTask.DelayFrame(frames, cancellationToken: component.GetCancellationTokenOnDestroy());
         component.gameObject.SetActive(true);
     }
     
