@@ -17,51 +17,60 @@ public static partial class MonoBehaviourExtensions
 
     ///<summary>
     ///Invokes action with delay
-    ///<param = "time">deley in seconds before invoking Action </param>
-    ///<param = "action">Action to invoke</param>
+    ///<param name = "delay">delay in seconds before invoking Action </param>
+    ///<param name = "action">Action to invoke</param>
     ///</summary>
     public static async void Invoke(this MonoBehaviour monoBehaviour, float delay, Action action)
     {
-	await UniTask.WaitForSeconds(delay);
+        await UniTask.WaitForSeconds(delay, cancellationToken: monoBehaviour.destroyCancellationToken);
         action.Invoke();
     }
 
     ///<summary>
     ///Invokes action with delay
-    ///<param = "frames">deley in frames before invoking Action </param>
-    ///<param = "action">Action to invoke</param>
+    ///<param name = "frames">delay in frames before invoking Action </param>
+    ///<param name = "action">Action to invoke</param>
     ///</summary>
     public static async void Invoke(this MonoBehaviour monoBehaviour, int frames, Action action)
     {
-        await UniTask.DelayFrame(frames);
+        await UniTask.DelayFrame(frames, cancellationToken: monoBehaviour.destroyCancellationToken);
         action.Invoke();
     }
-
-    public static UniTask WaitSeconds(this MonoBehaviour monoBehaviour, float secondsDelay, bool ignoreTimeScale = false, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default(CancellationToken))
+    
+    public static UniTask WaitSeconds(this MonoBehaviour monoBehaviour, float secondsDelay, bool ignoreTimeScale = false, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update)
     {
-        var delayTimeSpan = TimeSpan.FromSeconds(secondsDelay);
-        return UniTask.Delay(delayTimeSpan, ignoreTimeScale, delayTiming, cancellationToken);
+        return UniTask.WaitForSeconds(secondsDelay, ignoreTimeScale, delayTiming, monoBehaviour.destroyCancellationToken);
     }
 
-    public static UniTask WaitFrame(this MonoBehaviour monoBehaviour, int framesDelay = 1, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default(CancellationToken))
+    public static UniTask WaitFrame(this MonoBehaviour monoBehaviour, int framesDelay = 1, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update)
+    {
+        return UniTask.DelayFrame(framesDelay, delayTiming, monoBehaviour.destroyCancellationToken);
+    }
+    
+    public static UniTask WaitSeconds(this MonoBehaviour monoBehaviour, float secondsDelay, CancellationToken cancellationToken, bool ignoreTimeScale = false, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update)
+    {
+        return UniTask.WaitForSeconds(secondsDelay, ignoreTimeScale, delayTiming, cancellationToken);
+    }
+
+    public static UniTask WaitFrame(this MonoBehaviour monoBehaviour, CancellationToken cancellationToken, int framesDelay = 1, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update)
     {
         return UniTask.DelayFrame(framesDelay, delayTiming, cancellationToken);
     }
 
     /// <summary>Enables MonoBehaviour</summary>
-	public static void SetEnabled(this MonoBehaviour monoBehaviour)
+    public static void SetEnabled(this MonoBehaviour monoBehaviour)
     {
         monoBehaviour.enabled = true;
     }
 
     /// <summary>Disables MonoBehaviour</summary>
-	public static void SetDisabled(this MonoBehaviour monoBehaviour)
+    public static void SetDisabled(this MonoBehaviour monoBehaviour)
     {
         monoBehaviour.enabled = false;
     }
 
     /// <summary>Enables or disables MonoBehaviour</summary>
-	public static void SetEnabled(this MonoBehaviour monoBehaviour, bool enabled)
+    public static void SetEnabled(this MonoBehaviour monoBehaviour, bool enabled)
     {
         monoBehaviour.enabled = enabled;
     }
@@ -84,7 +93,7 @@ public static partial class MonoBehaviourExtensions
     /// <param name="delay">Time after which MonoBehaviour will be enabled or disabled.</param>
     public static async void SetEnabled(this MonoBehaviour monoBehaviour, bool enabled, float delay)
     {
-	await UniTask.WaitForSeconds(delay);
+        await monoBehaviour.WaitSeconds(delay);
         monoBehaviour.enabled = enabled;
     }
 
@@ -106,7 +115,7 @@ public static partial class MonoBehaviourExtensions
     /// <param name="frames">Frames after which MonoBehaviour will be enabled or disabled.</param>
     public static async void SetEnabled(this MonoBehaviour monoBehaviour, bool enabled, int frames)
     {
-        await UniTask.DelayFrame(frames);
+        await monoBehaviour.WaitFrame(frames);
         monoBehaviour.enabled = enabled;
     }
 }
